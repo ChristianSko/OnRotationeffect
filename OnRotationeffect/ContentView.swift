@@ -8,9 +8,28 @@
 import SwiftUI
 
 struct ContentView: View {
+    
+    @State var angle: Angle = Angle(degrees: 0)
+    
     var body: some View {
         Text("Hello, world!")
-            .padding()
+            .font(.title)
+            .foregroundColor(.white)
+            .padding(50)
+            .background(.blue)
+            .cornerRadius(20)
+            .rotationEffect(angle)
+            .gesture(
+                RotationGesture()
+                    .onChanged{ value in
+                        angle = value
+                    }
+                    .onEnded{ value in
+                        withAnimation(.spring()) {
+                            angle = Angle(degrees: 0)
+                        }
+                    }
+            )
     }
 }
 
